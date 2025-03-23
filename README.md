@@ -1,12 +1,6 @@
 ## Clash for Android
 
-A Graphical user interface of [clash](https://github.com/Dreamacro/clash) for Android
-
-<a href="https://play.google.com/store/apps/details?id=com.github.kr328.clash"><img width="200px" alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"/></a> or [Releases](https://github.com/Kr328/ClashForAndroid/releases)
-
-### Feature
-
-Fully feature of [clash](https://github.com/Dreamacro/clash) ~~(Exclude `external-controller`~~
+A Graphical user interface of [clash] for Android
 
 ### Requirement
 
@@ -24,21 +18,15 @@ See also [PRIVACY_POLICY.md](./PRIVACY_POLICY.md)
 
 ### Build
 
-1. Update submodules
+1. Install **OpenJDK 11**, **Android SDK**
 
-   ```bash
-   git submodule update --init --recursive
-   ```
-
-2. Install **OpenJDK 11**, **Android SDK**, **CMake** and **Golang**
-
-3. Create `local.properties` in project root with
+2. Create `local.properties` in project root with
 
    ```properties
    sdk.dir=/path/to/android-sdk
    ```
 
-4. Create `signing.properties` in project root with
+3. Create `signing.properties` in project root with
 
    ```properties
    keystore.path=/path/to/keystore/file
@@ -47,10 +35,10 @@ See also [PRIVACY_POLICY.md](./PRIVACY_POLICY.md)
    key.password=<key password>
    ```
 
-5. Build
+4. Build
 
    ```bash
-   ./gradlew app:assembleFossRelease
+   ./gradlew app:assemblePremiumRelease
    ```
 
-6. Pick `app-<version>-foss-<arch>-release.apk` in `app/build/outputs/apk/foss/release/`
+6. Pick `app-<version>-premium-<arch>-release.apk` in `app/build/outputs/apk/premium/release/`

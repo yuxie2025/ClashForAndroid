@@ -9,14 +9,12 @@ buildscript {
     repositories {
         mavenCentral()
         google()
-        maven("https://maven.kr328.app/releases")
     }
     dependencies {
         classpath(libs.build.android)
         classpath(libs.build.kotlin.common)
         classpath(libs.build.kotlin.serialization)
         classpath(libs.build.ksp)
-        classpath(libs.build.golang)
     }
 }
 
@@ -24,7 +22,6 @@ subprojects {
     repositories {
         mavenCentral()
         google()
-        maven("https://maven.kr328.app/releases")
     }
 
     val isApp = name == "app"
@@ -38,6 +35,7 @@ subprojects {
             }
 
             minSdk = 21
+            //noinspection ExpiredTargetSdkVersion
             targetSdk = 31
 
             versionName = "2.5.12"
@@ -73,18 +71,6 @@ subprojects {
 
         productFlavors {
             flavorDimensions("feature")
-
-            create("foss") {
-                isDefault = true
-                dimension = flavorDimensionList[0]
-                versionNameSuffix = ".foss"
-
-                buildConfigField("boolean", "PREMIUM", "Boolean.parseBoolean(\"false\")")
-
-                if (isApp) {
-                    applicationIdSuffix = ".foss"
-                }
-            }
             create("premium") {
                 dimension = flavorDimensionList[0]
                 versionNameSuffix = ".premium"
@@ -130,11 +116,6 @@ subprojects {
             }
         }
 
-        variantFilter {
-            ignore = name.startsWith("premium") && !project(":core")
-                .file("src/premium/golang/clash/go.mod").exists()
-        }
-
         if (isApp) {
             this as AppExtension
 
@@ -154,12 +135,4 @@ task("clean", type = Delete::class) {
 
 tasks.wrapper {
     distributionType = Wrapper.DistributionType.ALL
-
-    doLast {
-        val sha256 = URL("$distributionUrl.sha256").openStream()
-            .use { it.reader().readText().trim() }
-
-        file("gradle/wrapper/gradle-wrapper.properties")
-            .appendText("distributionSha256Sum=$sha256")
-    }
 }

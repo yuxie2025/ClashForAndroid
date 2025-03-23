@@ -6,19 +6,20 @@ plugins {
 }
 
 dependencies {
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
     implementation(project(":core"))
     implementation(project(":common"))
 
-    ksp(libs.kaidl.compiler)
     ksp(libs.androidx.room.compiler)
+    ksp(files("libs/kaidl-1.15.jar"))
 
     implementation(libs.kotlin.coroutine)
     implementation(libs.kotlin.serialization.json)
     implementation(libs.androidx.core)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
-    implementation(libs.kaidl.runtime)
     implementation(libs.rikkax.multiprocess)
+    implementation(files("libs/kaidl-runtime-1.15.jar"))
 }
 
 afterEvaluate {
